@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.UserInfoMapper">
+
+
+
+	<!-- 根据账号获取用户信息 -->
+	<select id="getByAccount" resultMap="userInfoMap" parameterType="String">
+		select
+		<include refid="selectId" />
+		from UAOP_USER_INFO u where u.STATUS=0 and u.USER_ID=(select distinct
+		USER_ID FROM UAOP_SYSUSER where ACCOUNT=#{account})
+	</select>
+
+	<insert id="add" parameterType="UserInfo">
+		insert into UAOP_USER_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="cid != null">
+				CID,
+			</if>
+			<if test="isPolice != null">
+				IS_POLICE,
+			</if>
+			<if test="policeId != null">
+				POLICE_ID,
+			</if>
+			<if test="contact != null">
+				CONTACT,
+			</if>
+			<if test="avatar != null">
+				AVATAR,
+			</if>
+			<if test="post != null">
+				POST,
+			</if>
+			<if test="birth != null">
+				BIRTH,
+			</if>
+			<if test="poli != null">
+				POLI,
+			</if>
+			<if test="phone != null">
+				PHONE,
+			</if>
+			<if test="fax != null">
+				FAX,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="zipcode != null">
+				ZIPCODE,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="county != null">
+				COUNTY,
+			</if>
+			<if test="extStr1 != null">
+				EXT_STR1,
+			</if>
+			<if test="extStr2 != null">
+				EXT_STR2,
+			</if>
+			<if test="extStr3 != null">
+				EXT_STR3,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createAccount != null">
+				CREATE_ACCOUNT,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME,
+			</if>
+			<if test="lastModifyAccount != null">
+				LAST_MODIFY_ACCOUNT,
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL,
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS,
+			</if>
+			<if test="nation != null">
+				NATION,
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE,
+			</if>
+			<if test="mobilePhone != null">
+				MOBILE_PHONE,
+			</if>
+			<if test="addpoliDate != null">
+				ADDPOLI_DATE,
+			</if>
+			<if test="note != null">
+				NOTE,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="cid != null">
+				#{cid},
+			</if>
+			<if test="isPolice != null">
+				#{isPolice},
+			</if>
+			<if test="policeId != null">
+				#{policeId},
+			</if>
+			<if test="contact != null">
+				#{contact},
+			</if>
+			<if test="avatar != null">
+				#{avatar},
+			</if>
+			<if test="post != null">
+				#{post},
+			</if>
+			<if test="birth != null">
+				#{birth},
+			</if>
+			<if test="poli != null">
+				#{poli},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="fax != null">
+				#{fax},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="zipcode != null">
+				#{zipcode},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="county != null">
+				#{county},
+			</if>
+			<if test="extStr1 != null">
+				#{extStr1},
+			</if>
+			<if test="extStr2 != null">
+				#{extStr2},
+			</if>
+			<if test="extStr3 != null">
+				#{extStr3},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="createAccount != null">
+				#{createAccount},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime},
+			</if>
+			<if test="lastModifyAccount != null">
+				#{lastModifyAccount},
+			</if>
+			<if test="lastTerminal != null">
+				#{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				#{lastSys},
+			</if>
+			<if test="nation != null">
+				#{nation},
+			</if>
+			<if test="nativePlace != null">
+				#{nativePlace},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone},
+			</if>
+			<if test="addpoliDate != null">
+				#{addpoliDate},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="email != null">
+				#{email},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="UserInfo">
+		update UAOP_USER_INFO
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex},
+			</if>
+			<if test="cid != null">
+				CID = #{cid},
+			</if>
+			<if test="isPolice != null">
+				IS_POLICE = #{isPolice},
+			</if>
+			<if test="policeId != null">
+				POLICE_ID = #{policeId},
+			</if>
+			<if test="contact != null">
+				CONTACT = #{contact},
+			</if>
+			<if test="avatar != null">
+				AVATAR = #{avatar},
+			</if>
+			<if test="post != null">
+				POST = #{post},
+			</if>
+			<if test="birth != null">
+				BIRTH = #{birth},
+			</if>
+			<if test="poli != null">
+				POLI = #{poli},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone},
+			</if>
+			<if test="fax != null">
+				FAX = #{fax},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address},
+			</if>
+			<if test="zipcode != null">
+				ZIPCODE = #{zipcode},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province},
+			</if>
+			<if test="city != null">
+				CITY = #{city},
+			</if>
+			<if test="county != null">
+				COUNTY = #{county},
+			</if>
+			<if test="extStr1 != null">
+				EXT_STR1 = #{extStr1},
+			</if>
+			<if test="extStr2 != null">
+				EXT_STR2 = #{extStr2},
+			</if>
+			<if test="extStr3 != null">
+				EXT_STR3 = #{extStr3},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME = #{lastModifyTime},
+			</if>
+			<if test="lastModifyAccount != null">
+				LAST_MODIFY_ACCOUNT = #{lastModifyAccount},
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL = #{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS = #{lastSys},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation},
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE = #{nativePlace},
+			</if>
+			<if test="mobilePhone != null">
+				MOBILE_PHONE = #{mobilePhone},
+			</if>
+			<if test="addpoliDate != null">
+				ADDPOLI_DATE = #{addpoliDate},
+			</if>
+			<if test="note != null">
+				NOTE = #{note},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email},
+			</if>
+		</set>
+		where USER_ID = #{userId}
+	</update>
+
+	<sql id="batchInsertSql">
+		insert into UAOP_USER_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="item.userId != null">
+				USER_ID,
+			</if>
+			<if test="item.userName != null">
+				USER_NAME,
+			</if>
+			<if test="item.sex != null">
+				SEX,
+			</if>
+			<if test="item.cid != null">
+				CID,
+			</if>
+			<if test="item.isPolice != null">
+				IS_POLICE,
+			</if>
+			<if test="item.policeId != null">
+				POLICE_ID,
+			</if>
+			<if test="item.contact != null">
+				CONTACT,
+			</if>
+			<if test="item.avatar != null">
+				AVATAR,
+			</if>
+			<if test="item.post != null">
+				POST,
+			</if>
+			<if test="item.birth != null">
+				BIRTH,
+			</if>
+			<if test="item.poli != null">
+				POLI,
+			</if>
+			<if test="item.phone != null">
+				PHONE,
+			</if>
+			<if test="item.fax != null">
+				FAX,
+			</if>
+			<if test="item.address != null">
+				ADDRESS,
+			</if>
+			<if test="item.zipcode != null">
+				ZIPCODE,
+			</if>
+			<if test="item.province != null">
+				PROVINCE,
+			</if>
+			<if test="item.city != null">
+				CITY,
+			</if>
+			<if test="item.county != null">
+				COUNTY,
+			</if>
+			<if test="item.extStr1 != null">
+				EXT_STR1,
+			</if>
+			<if test="item.extStr2 != null">
+				EXT_STR2,
+			</if>
+			<if test="item.extStr3 != null">
+				EXT_STR3,
+			</if>
+			<if test="item.status != null">
+				STATUS,
+			</if>
+			<if test="item.createAccount != null">
+				CREATE_ACCOUNT,
+			</if>
+			<if test="item.createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="item.lastModifyTime != null">
+				LAST_MODIFY_TIME,
+			</if>
+			<if test="item.lastModifyAccount != null">
+				LAST_MODIFY_ACCOUNT,
+			</if>
+			<if test="item.lastTerminal != null">
+				LAST_TERMINAL,
+			</if>
+			<if test="item.lastSys != null">
+				LAST_SYS,
+			</if>
+			<if test="item.nation != null">
+				NATION,
+			</if>
+			<if test="item.nativePlace != null">
+				NATIVE_PLACE,
+			</if>
+			<if test="item.mobilePhone != null">
+				MOBILE_PHONE,
+			</if>
+			<if test="item.addpoliDate != null">
+				ADDPOLI_DATE,
+			</if>
+			<if test="item.note != null">
+				NOTE,
+			</if>
+			<if test="item.email != null">
+				EMAIL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="item.userId != null">
+				#{item.userId},
+			</if>
+			<if test="item.userName != null">
+				#{item.userName},
+			</if>
+			<if test="item.sex != null">
+				#{item.sex},
+			</if>
+			<if test="item.cid != null">
+				#{item.cid},
+			</if>
+			<if test="item.isPolice != null">
+				#{item.isPolice},
+			</if>
+			<if test="item.policeId != null">
+				#{item.policeId},
+			</if>
+			<if test="item.contact != null">
+				#{item.contact},
+			</if>
+			<if test="item.avatar != null">
+				#{item.avatar},
+			</if>
+			<if test="item.post != null">
+				#{item.post},
+			</if>
+			<if test="item.birth != null">
+				#{item.birth},
+			</if>
+			<if test="item.poli != null">
+				#{item.poli},
+			</if>
+			<if test="item.phone != null">
+				#{item.phone},
+			</if>
+			<if test="item.fax != null">
+				#{item.fax},
+			</if>
+			<if test="item.address != null">
+				#{item.address},
+			</if>
+			<if test="item.zipcode != null">
+				#{item.zipcode},
+			</if>
+			<if test="item.province != null">
+				#{item.province},
+			</if>
+			<if test="item.city != null">
+				#{item.city},
+			</if>
+			<if test="item.county != null">
+				#{item.county},
+			</if>
+			<if test="item.extStr1 != null">
+				#{item.extStr1},
+			</if>
+			<if test="item.extStr2 != null">
+				#{item.extStr2},
+			</if>
+			<if test="item.extStr3 != null">
+				#{item.extStr3},
+			</if>
+			<if test="item.status != null">
+				#{item.status},
+			</if>
+			<if test="item.createAccount != null">
+				#{item.createAccount},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.lastModifyTime != null">
+				#{item.lastModifyTime},
+			</if>
+			<if test="item.lastModifyAccount != null">
+				#{item.lastModifyAccount},
+			</if>
+			<if test="item.lastTerminal != null">
+				#{item.lastTerminal},
+			</if>
+			<if test="item.lastSys != null">
+				#{item.lastSys},
+			</if>
+			<if test="item.nation != null">
+				#{item.nation},
+			</if>
+			<if test="item.nativePlace != null">
+				#{item.nativePlace},
+			</if>
+			<if test="item.mobilePhone != null">
+				#{item.mobilePhone},
+			</if>
+			<if test="item.addpoliDate != null">
+				#{item.addpoliDate},
+			</if>
+			<if test="item.note != null">
+				#{item.note},
+			</if>
+			<if test="item.email != null">
+				#{item.email},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 批量增加信息 -->
+	<insert id="addBatch" parameterType="java.util.List">
+		BEGIN
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			<include refid="batchInsertSql" />
+		</foreach>
+		;
+		END;
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="String">
+		delete from UAOP_USER_INFO
+		where USER_ID=#{id}
+	</delete>
+
+	<!-- 查询所有符合条件的 -->
+	<select id="find" resultMap="userInfoMap" parameterType="UserInfo">
+		select
+		<include refid="selectId" />
+		from UAOP_USER_INFO
+		<where>
+			where STATUS=0
+			<if test="userName != null and userName != ''">
+				and USER_NAME like '%'||#{userName}||'%'
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="getById" resultMap="userInfoMap" parameterType="String">
+		select
+		<include refid="selectId" />
+		from UAOP_USER_INFO
+		<where>
+			USER_ID=#{userId}
+		</where>
+	</select>
+
+	<sql id="clausePage">
+		from UAOP_USER_INFO
+		<where>
+			where STATUS=0
+			<if test="userName != null and userName != ''">
+				and USER_NAME like '%'||#{userName}||'%'
+			</if>
+			<if test="cid != null and cid != ''">
+				and CID=#{cid}
+			</if>
+			<if test="policeId != null and policeId != ''">
+				and POLICE_ID=#{policeId}
+			</if>
+			<if test="isPolice != null and isPolice !=-1">
+				and IS_POLICE=#{isPolice}
+			</if>
+			<if test="contact != null and contact != ''">
+				and CONTACT like '%'||#{contact}||'%'
+			</if>
+			<if test="status != null and status != ''">
+				and STATUS=#{status}
+			</if>
+			<if test="extStr1 != null and extStr1 != ''">
+				and EXT_STR1 like '%'||#{extStr1}||'%'
+			</if>
+			<if test="extStr2 != null and extStr2 != ''">
+				and EXT_STR2 like '%'||#{extStr2}||'%'
+			</if>
+			<if test="extStr3 != null and extStr3 != ''">
+				and EXT_STR3 like '%'||#{extStr3}||'%'
+			</if>
+		</where>
+	</sql>
+
+	<select id="query" resultMap="userInfoMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		<include refid="clausePage" />
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="java.util.HashMap">
+		select
+		count(0)
+		<include refid="clausePage" />
+	</select>
+
+	<update id="updateStatusById" parameterType="UserInfo">
+		update UAOP_USER_INFO
+		<set>
+			<include refid="comm.updateStatusIdSql" />
+		</set>
+		where USER_ID=#{userId}
+	</update>
+
+	<!-- 根据userId列表批量更新状态 -->
+	<update id="updateStatusByIdList" parameterType="java.util.Map">
+		update UAOP_USER_INFO
+		<set>
+			<include refid="comm.updateStatusIdSql" />
+		</set>
+		where USER_ID in
+		<foreach item="item" index="index" collection="ids" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		USER_ID,
+		USER_NAME,
+		SEX,
+		CID,
+		IS_POLICE,
+		POLICE_ID,
+		CONTACT,
+		AVATAR,
+		POST,
+		BIRTH,
+		POLI,
+		PHONE,
+		FAX,
+		ADDRESS,
+		ZIPCODE,
+		PROVINCE,
+		CITY,
+		COUNTY,
+		NATION,
+		NATIVE_PLACE,
+		MOBILE_PHONE,
+		ADDPOLI_DATE,
+		NOTE,
+		EMAIL,
+		EXT_STR1,
+		EXT_STR2,
+		EXT_STR3,
+		STATUS,
+		CREATE_ACCOUNT,
+		CREATE_TIME,
+		LAST_TERMINAL,
+		LAST_SYS
+	</sql>
+
+
+	<resultMap type="com.hisign.sso.api.entity.sys.UserInfo" id="userInfoMap">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="sex" column="SEX" />
+		<result property="cid" column="CID" />
+		<result property="isPolice" column="IS_POLICE" />
+		<result property="policeId" column="POLICE_ID" />
+		<result property="contact" column="CONTACT" />
+		<result property="avatar" column="AVATAR" />
+		<result property="post" column="POST" />
+		<result property="birth" column="BIRTH" />
+		<result property="poli" column="POLI" />
+		<result property="phone" column="PHONE" />
+		<result property="fax" column="FAX" />
+		<result property="address" column="ADDRESS" />
+		<result property="zipcode" column="ZIPCODE" />
+		<result property="province" column="PROVINCE" />
+		<result property="city" column="CITY" />
+		<result property="county" column="COUNTY" />
+		<result property="nation" column="NATION" />
+		<result property="nativePlace" column="NATIVE_PLACE" />
+		<result property="mobilePhone" column="MOBILE_PHONE" />
+		<result property="addpoliDate" column="ADDPOLI_DATE" />
+		<result property="note" column="NOTE" />
+		<result property="email" column="EMAIL" />
+		<result property="extStr1" column="EXT_STR1" />
+		<result property="extStr2" column="EXT_STR2" />
+		<result property="extStr3" column="EXT_STR3" />
+		<result property="status" column="STATUS" />
+		<result property="createAccount" column="CREATE_ACCOUNT" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="lastModifyAccount" column="LAST_MODIFY_ACCOUNT" />
+		<result property="lastModifyTime" column="LAST_MODIFY_TIME" />
+		<result property="lastTerminal" column="LAST_TERMINAL" />
+		<result property="lastSys" column="LAST_SYS" />
+		<result property="rowNum" column="ROW_ID" />
+		<collection property="systemIds" column="USER_ID" javaType="List" ofType="String"
+		 select="com.hisign.sso.persist.mapper.sys.UserSystemMapper.getSystemIdsByUserId">                
+		</collection>
+	</resultMap>
+
+</mapper>

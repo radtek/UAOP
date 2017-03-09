@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.technical.SmsNotifyMapper">
+	<resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.technical.SmsNotify">
+		<id column="ID" property="id" />
+		<result column="SMS_CONTENT" property="smsContent" />
+		<result column="RECIEVE_USER" property="recieveUser" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_TIME" property="createTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, SMS_CONTENT, RECIEVE_USER, CREATE_USER, CREATE_TIME
+	</sql>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SMS_NOTIFY
+		where ID = #{id}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from UAOP_SMS_NOTIFY
+		where ID = #{id}
+	</delete>
+	
+	<insert id="add" parameterType="SmsNotify">
+		insert into UAOP_SMS_NOTIFY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT,
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="smsContent != null">
+				#{smsContent},
+			</if>
+			<if test="recieveUser != null">
+				#{recieveUser},
+			</if>
+			<if test="createUser != null">
+				#{createUser},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="SmsNotify">
+		update UAOP_SMS_NOTIFY
+		<set>
+			<if test="smsContent != null">
+				SMS_CONTENT = #{smsContent},
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER = #{recieveUser},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<select id="find" resultMap="BaseResultMap" parameterType="SmsNotify">
+		select
+		<include refid="Base_Column_List" />
+		<include refid="clausePage" />
+	</select>
+	
+	<sql id="clausePage">
+		from UAOP_SMS_NOTIFY
+		<where>
+			<if test="createUser != null and createUser != ''">
+				and CREATE_USER = #{createUser}
+			</if>
+		</where>
+	</sql>
+</mapper>

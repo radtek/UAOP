@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.UserSystemMapper">
+
+    <!-- 根据userId查询所拥有的systemId列表 -->
+	<select id="getSystemIdsByUserId" resultType="String" parameterType="String">
+		select SYSTEM_ID  from UAOP_USER_SYSTEM where USER_ID = #{userId}
+	</select>
+	
+	<delete id="delete" parameterType="UserSystem">
+		delete from UAOP_USER_SYSTEM
+		where USER_ID = #{userId} and SYSTEM_ID = #{systemId}
+	</delete>
+
+	<delete id="deleteByUserId" parameterType="String">
+		delete from
+		UAOP_USER_SYSTEM where USER_ID = #{userId}
+	</delete>
+
+	<!-- 按照账号列表批量删除 -->
+	<delete id="deleteByUserIdList" parameterType="java.util.List">
+		delete from UAOP_USER_SYSTEM where USER_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 按照账号列表批量获取 -->
+	<select id="getByUserIdList" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		    <include refid="Base_Column_List" /> 
+		from UAOP_USER_SYSTEM where USER_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<delete id="deleteBySystemId" parameterType="String">
+		delete from
+		UAOP_USER_SYSTEM where SYSTEM_ID = #{systemId}
+	</delete>
+
+	<insert id="add" parameterType="UserSystem">
+		insert into UAOP_USER_SYSTEM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="systemId != null">
+				SYSTEM_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="systemId != null">
+				#{systemId},
+			</if>
+		</trim>
+	</insert>
+
+	<sql id="batchInsertSql">
+		insert into UAOP_USER_SYSTEM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="item.userId != null">
+				USER_ID,
+			</if>
+			<if test="item.systemId != null">
+				SYSTEM_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="item.userId != null">
+				#{item.userId},
+			</if>
+			<if test="item.systemId != null">
+				#{item.systemId},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 批量增加信息 -->
+	<insert id="addBatch" parameterType="java.util.List">
+		BEGIN
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			<include refid="batchInsertSql" />
+		</foreach>
+		;
+		END;
+	</insert>
+
+	<resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.sys.UserSystem">
+		<result column="USER_ID" property="userId" />
+		<result column="SYSTEM_ID" property="systemId" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		USER_ID,
+		SYSTEM_ID
+	</sql>
+</mapper>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.SysDictMapper">
+
+    <select id="getAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			OPEN_FLAG='1'
+		</where>
+	</select>
+	
+	<select id="getSysDictByRootAndDictKey" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			TYPE='0' and OPEN_FLAG='1' and ROOT_KEY=upper(#{rootKey}) and
+			DICT_KEY=#{dictKey}
+		</where>
+	</select>
+
+	<select id="getSysDictListByRootAndDictKeyList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			TYPE='0' and OPEN_FLAG='1' and ROOT_KEY=upper(#{rootKey})
+			and DICT_KEY
+			in
+			<foreach item="item" index="index" collection="dictKeys"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+
+	<!-- 根据rootkey查询集合且parentKey不为空 -->
+	<select id="findSysDictsByRootKey" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			TYPE='0' and OPEN_FLAG='1' and ROOT_KEY=upper(#{value})
+		</where>
+		order by DICT_SORT
+	</select>
+
+	<!-- 根据rootkey查询集合且parentKey不为空 -->
+	<select id="findSysDictsByRootKeys" resultMap="BaseResultMap"
+		parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			TYPE='0' and OPEN_FLAG='1' and
+			ROOT_KEY in
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")">
+				upper(#{item})
+			</foreach>
+		</where>
+		order by DICT_SORT
+	</select>
+
+	<select id="find" resultMap="BaseResultMap" parameterType="SysDict">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			OPEN_FLAG='1'
+			<include refid="queryCondition" />
+		</where>
+		order by DICT_SORT
+	</select>
+
+	<!--用户查询条件 -->
+	<sql id="queryCondition">
+		<if test="sysCode != null">
+			and SYS_CODE = #{sysCode}
+		</if>
+		<if test="type != null">
+			and TYPE = #{type}
+		</if>
+		<if test="parentKey != null">
+			and PARENT_KEY = upper(#{parentKey})
+		</if>
+		<if test="parentRootKey != null">
+			and PARENT_ROOT_KEY = upper(#{parentRootKey})
+		</if>
+		<if test="dictLevel != null">
+			and DICT_LEVEL = #{dictLevel}
+		</if>
+		<if test="dictKey != null">
+			and DICT_KEY like
+			CONCAT(upper(#{dictKey}),'%')
+			escape '\'
+		</if>
+		<if test="rootKey != null">
+			and ROOT_KEY=upper(#{rootKey})
+		</if>
+		<if test="dictValue1 != null">
+			and DICT_VALUE1 like
+			CONCAT(CONCAT('%',#{dictValue1}),'%')
+			escape '\'
+		</if>
+		<if test="dictValue2 != null">
+			and DICT_VALUE2 like
+			CONCAT(CONCAT('%',#{dictValue2}),'%')
+			escape '\'
+		</if>
+		<if test="dictValue3 != null">
+			and DICT_VALUE3 like
+			CONCAT(CONCAT('%',#{dictValue3}),'%')
+			escape '\'
+		</if>
+		<if test="leafFlag != null">
+			and LEAF_FLAG = #{leafFlag}
+		</if>
+		<if test="downloadFlag != null">
+			and DOWNLOAD_FLAG = #{downloadFlag}
+		</if>
+		<if test="readonlyFlag != null">
+			and READONLY_FLAG = #{readonlyFlag}
+		</if>
+		<if test="dictPy != null">
+			and DICT_PY like
+			CONCAT(CONCAT('%',#{dictPy}),'%')
+			escape
+			'\'
+		</if>
+		<if test="openFlag != null">
+			and OPEN_FLAG = #{openFlag}
+		</if>
+		<if test="remark != null">
+			and REMARK = #{remark}
+		</if>
+	</sql>
+
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			OPEN_FLAG='1'
+			<include refid="queryCondition" />
+		</where>
+		order by DICT_SORT
+	</select>
+
+	<insert id="add" parameterType="SysDict">
+		insert into UAOP_SYS_DICT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="sysCode != null">
+				SYS_CODE,
+			</if>
+			<if test="dictLevel != null">
+				DICT_LEVEL,
+			</if>
+			<if test="dictKey != null">
+				DICT_KEY,
+			</if>
+			<if test="parentKey != null">
+				PARENT_KEY,
+			</if>
+			<if test="rootKey != null">
+				ROOT_KEY,
+			</if>
+			<if test="parentRootKey != null">
+				PARENT_ROOT_KEY,
+			</if>
+			<if test="dictValue1 != null">
+				DICT_VALUE1,
+			</if>
+			<if test="dictValue2 != null">
+				DICT_VALUE2,
+			</if>
+			<if test="dictValue3 != null">
+				DICT_VALUE3,
+			</if>
+			<if test="leafFlag != null">
+				LEAF_FLAG,
+			</if>
+			<if test="downloadFlag != null">
+				DOWNLOAD_FLAG,
+			</if>
+			<if test="readonlyFlag != null">
+				READONLY_FLAG,
+			</if>
+			<if test="dictSort != null">
+				DICT_SORT,
+			</if>
+			<if test="dictPy != null">
+				DICT_PY,
+			</if>
+			<if test="openFlag != null">
+				OPEN_FLAG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createDatetime != null">
+				CREATE_DATETIME,
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER,
+			</if>
+			<if test="updateDatetime != null">
+				UPDATE_DATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="sysCode != null">
+				#{sysCode},
+			</if>
+			<if test="dictLevel != null">
+				#{dictLevel},
+			</if>
+			<if test="dictKey != null">
+				upper(#{dictKey}),
+			</if>
+			<if test="parentKey != null">
+				upper(#{parentKey}),
+			</if>
+			<if test="rootKey != null">
+				upper(#{rootKey}),
+			</if>
+			<if test="parentRootKey != null">
+				upper(#{parentRootKey}),
+			</if>
+			<if test="dictValue1 != null">
+				#{dictValue1},
+			</if>
+			<if test="dictValue2 != null">
+				#{dictValue2},
+			</if>
+			<if test="dictValue3 != null">
+				#{dictValue3},
+			</if>
+			<if test="leafFlag != null">
+				#{leafFlag},
+			</if>
+			<if test="downloadFlag != null">
+				#{downloadFlag},
+			</if>
+			<if test="readonlyFlag != null">
+				#{readonlyFlag},
+			</if>
+			<if test="dictSort != null">
+				#{dictSort},
+			</if>
+			<if test="dictPy != null">
+				#{dictPy},
+			</if>
+			<if test="openFlag != null">
+				#{openFlag},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="createUser != null">
+				#{createUser},
+			</if>
+			<if test="createDatetime != null">
+				#{createDatetime},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser},
+			</if>
+			<if test="updateDatetime != null">
+				#{updateDatetime},
+			</if>
+		</trim>
+	</insert>
+
+	<sql id="batchInsertSql">
+		insert into UAOP_SYS_DICT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="item.id != null">
+				ID,
+			</if>
+			<if test="item.sysCode != null">
+				SYS_CODE,
+			</if>
+			<if test="item.dictLevel != null">
+				DICT_LEVEL,
+			</if>
+			<if test="item.dictKey != null">
+				DICT_KEY,
+			</if>
+			<if test="item.parentKey != null">
+				PARENT_KEY,
+			</if>
+			<if test="item.rootKey != null">
+				ROOT_KEY,
+			</if>
+			<if test="item.parentRootKey != null">
+				PARENT_ROOT_KEY,
+			</if>
+			<if test="item.dictValue1 != null">
+				DICT_VALUE1,
+			</if>
+			<if test="item.dictValue2 != null">
+				DICT_VALUE2,
+			</if>
+			<if test="item.dictValue3 != null">
+				DICT_VALUE3,
+			</if>
+			<if test="item.leafFlag != null">
+				LEAF_FLAG,
+			</if>
+			<if test="item.downloadFlag != null">
+				DOWNLOAD_FLAG,
+			</if>
+			<if test="item.readonlyFlag != null">
+				READONLY_FLAG,
+			</if>
+			<if test="item.dictSort != null">
+				DICT_SORT,
+			</if>
+			<if test="item.dictPy != null">
+				DICT_PY,
+			</if>
+			<if test="item.openFlag != null">
+				OPEN_FLAG,
+			</if>
+			<if test="item.remark != null">
+				REMARK,
+			</if>
+			<if test="item.createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="item.createDatetime != null">
+				CREATE_DATETIME,
+			</if>
+			<if test="item.updateUser != null">
+				UPDATE_USER,
+			</if>
+			<if test="item.updateDatetime != null">
+				UPDATE_DATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="item.id != null">
+				#{item.id},
+			</if>
+			<if test="item.sysCode != null">
+				#{item.sysCode},
+			</if>
+			<if test="item.dictLevel != null">
+				#{item.dictLevel},
+			</if>
+			<if test="item.dictKey != null">
+				upper(#{item.dictKey}),
+			</if>
+			<if test="item.parentKey != null">
+				upper(#{item.parentKey}),
+			</if>
+			<if test="item.rootKey != null">
+				upper(#{item.rootKey}),
+			</if>
+			<if test="item.parentRootKey != null">
+				upper(#{item.parentRootKey}),
+			</if>
+			<if test="item.dictValue1 != null">
+				#{item.dictValue1},
+			</if>
+			<if test="item.dictValue2 != null">
+				#{item.dictValue2},
+			</if>
+			<if test="item.dictValue3 != null">
+				#{item.dictValue3},
+			</if>
+			<if test="item.leafFlag != null">
+				#{item.leafFlag},
+			</if>
+			<if test="item.downloadFlag != null">
+				#{item.downloadFlag},
+			</if>
+			<if test="item.readonlyFlag != null">
+				#{item.readonlyFlag},
+			</if>
+			<if test="item.dictSort != null">
+				#{item.dictSort},
+			</if>
+			<if test="item.dictPy != null">
+				#{item.dictPy},
+			</if>
+			<if test="item.openFlag != null">
+				#{item.openFlag},
+			</if>
+			<if test="item.remark != null">
+				#{item.remark},
+			</if>
+			<if test="item.createUser != null">
+				#{item.createUser},
+			</if>
+			<if test="item.createDatetime != null">
+				#{item.createDatetime},
+			</if>
+			<if test="item.updateUser != null">
+				#{item.updateUser},
+			</if>
+			<if test="item.updateDatetime != null">
+				#{item.updateDatetime},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 批量增加信息 -->
+	<insert id="addBatch" parameterType="java.util.List">
+		BEGIN
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			<include refid="batchInsertSql" />
+		</foreach>
+		;
+		END;
+	</insert>
+
+	<update id="update" parameterType="SysDict">
+		update UAOP_SYS_DICT
+		<set>
+			<if test="sysCode != null">
+				SYS_CODE = #{sysCode},
+			</if>
+			<if test="dictLevel != null">
+				DICT_LEVEL = #{dictLevel},
+			</if>
+			<if test="dictKey != null">
+				DICT_KEY = upper(#{dictKey}),
+			</if>
+			<if test="parentKey != null">
+				PARENT_KEY = upper(#{parentKey}),
+			</if>
+			<if test="rootKey != null">
+				ROOT_KEY = upper(#{rootKey}),
+			</if>
+			<if test="parentRootKey != null">
+				PARENT_ROOT_KEY = upper(#{parentRootKey}),
+			</if>
+			<if test="dictValue1 != null">
+				DICT_VALUE1 = #{dictValue1},
+			</if>
+			<if test="dictValue2 != null">
+				DICT_VALUE2 = #{dictValue2},
+			</if>
+			<if test="dictValue3 != null">
+				DICT_VALUE3 = #{dictValue3},
+			</if>
+			<if test="leafFlag != null">
+				LEAF_FLAG = #{leafFlag},
+			</if>
+			<if test="downloadFlag != null">
+				DOWNLOAD_FLAG = #{downloadFlag},
+			</if>
+			<if test="readonlyFlag != null">
+				READONLY_FLAG = #{readonlyFlag},
+			</if>
+			<if test="dictSort != null">
+				DICT_SORT = #{dictSort},
+			</if>
+			<if test="dictPy != null">
+				DICT_PY = #{dictPy},
+			</if>
+			<if test="openFlag != null">
+				OPEN_FLAG = #{openFlag},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser},
+			</if>
+			<if test="createDatetime != null">
+				CREATE_DATETIME = #{createDatetime},
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER = #{updateUser},
+			</if>
+			<if test="updateDatetime != null">
+				UPDATE_DATETIME = #{updateDatetime},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+    <select id="getById" resultMap="BaseResultMap" parameterType="String">
+        select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT where ID=#{id}
+    </select>
+    
+	<!-- 删除 -->
+	<delete id="delete" parameterType="String">
+		delete from UAOP_SYS_DICT where ID=#{id}
+	</delete>
+
+	<!-- 删除 -->
+	<delete id="deleteByCondition" parameterType="java.util.HashMap">
+		delete from UAOP_SYS_DICT
+		<where>
+			<include refid="queryCondition" />
+			<if test="ids != null">
+				and ID in 
+	            <foreach item="item" index="index" collection="ids" 
+	              open="(" separator="," close=")">
+	                #{item}
+	       	    </foreach>
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 递归获取字典项 -->
+	<select id="getNestChildrenById" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYS_DICT
+		<where>
+			ROOT_KEY=#{rootKey}
+		</where>
+		start with ID=#{id}
+		connect by
+		prior DICT_KEY = PARENT_KEY
+	</select>
+
+	<resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.sys.SysDict">
+		<result column="ID" property="id" />
+		<result column="SYS_CODE" property="sysCode" />
+		<result column="DICT_LEVEL" property="dictLevel" />
+		<result column="DICT_KEY" property="dictKey" />
+		<result column="PARENT_KEY" property="parentKey" />
+		<result column="ROOT_KEY" property="rootKey" />
+		<result column="DICT_VALUE1" property="dictValue1" />
+		<result column="DICT_VALUE2" property="dictValue2" />
+		<result column="DICT_VALUE3" property="dictValue3" />
+		<result column="LEAF_FLAG" property="leafFlag" />
+		<result column="DOWNLOAD_FLAG" property="downloadFlag" />
+		<result column="READONLY_FLAG" property="readonlyFlag" />
+		<result column="DICT_SORT" property="dictSort" />
+		<result column="DICT_PY" property="dictPy" />
+		<result column="OPEN_FLAG" property="openFlag" />
+		<result column="REMARK" property="remark" />
+		<result column="PARENT_ROOT_KEY" property="parentRootKey" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATETIME" property="createDatetime" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATETIME" property="updateDatetime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, SYS_CODE, DICT_LEVEL, DICT_KEY, PARENT_KEY, ROOT_KEY,
+		DICT_VALUE1,
+		DICT_VALUE2,
+		DICT_VALUE3, LEAF_FLAG, DOWNLOAD_FLAG,
+		READONLY_FLAG, DICT_SORT, DICT_PY,
+		OPEN_FLAG,
+		REMARK,
+		PARENT_ROOT_KEY,
+		CREATE_USER,
+		CREATE_DATETIME, UPDATE_USER, UPDATE_DATETIME
+	</sql>
+</mapper>

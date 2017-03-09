@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.MenuResourceMapper">
+
+	<!-- 查询所有符合条件的 -->
+	<select id="find" resultMap="menuResourceMap" parameterType="MenuResource">
+		select
+		<include refid="selectId" />
+		from uaop_menu_resource
+		<where>
+			SYSTEM_ID=#{systemId} order by ORDER_NUM
+		</where>
+	</select>
+
+	<insert id="add" parameterType="MenuResource">
+		insert into UAOP_MENU_RESOURCE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="resourceId != null">
+				RESOURCE_ID,
+			</if>
+			<if test="systemId != null">
+				SYSTEM_ID,
+			</if>
+			<if test="resourceName != null">
+				RESOURCE_NAME,
+			</if>
+			<if test="superId != null">
+				SUPER_ID,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+			<if test="icon != null">
+				ICON,
+			</if>
+			<if test="visibleState != null">
+				VISIBLE_STATE,
+			</if>
+			<if test="orderNum != null">
+				ORDER_NUM,
+			</if>
+			<if test="note != null">
+				NOTE,
+			</if>
+			<if test="menuType != null">
+				MENU_TYPE,
+			</if>
+			<if test="resourceEnName != null">
+				RESOURCE_EN_NAME,
+			</if>
+			<if test="appType != null">
+				APP_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="resourceId != null">
+				#{resourceId},
+			</if>
+			<if test="systemId != null">
+				#{systemId},
+			</if>
+			<if test="resourceName != null">
+				#{resourceName},
+			</if>
+			<if test="superId != null">
+				#{superId},
+			</if>
+			<if test="url != null">
+				#{url},
+			</if>
+			<if test="icon != null">
+				#{icon},
+			</if>
+			<if test="visibleState != null">
+				#{visibleState},
+			</if>
+			<if test="orderNum != null">
+				#{orderNum},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="menuType != null">
+				#{menuType},
+			</if>
+			<if test="resourceEnName != null">
+				#{resourceEnName},
+			</if>
+			<if test="appType != null">
+				#{appType},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="MenuResource">
+		update UAOP_MENU_RESOURCE
+		<set>
+			<if test="resourceName != null">
+				RESOURCE_NAME = #{resourceName},
+			</if>
+			<if test="superId != null">
+				SUPER_ID = #{superId},
+			</if>
+			<if test="url != null">
+				URL = #{url},
+			</if>
+			<if test="icon != null">
+				ICON = #{icon},
+			</if>
+			<if test="visibleState != null">
+				VISIBLE_STATE = #{visibleState},
+			</if>
+			<if test="orderNum != null">
+				ORDER_NUM = #{orderNum},
+			</if>
+			<if test="note != null">
+				NOTE = #{note},
+			</if>
+			<if test="menuType != null">
+				MENU_TYPE = #{menuType},
+			</if>
+			<if test="resourceEnName != null">
+				RESOURCE_EN_NAME = #{resourceEnName},
+			</if>
+			<if test="appType != null">
+				APP_TYPE = #{appType},
+			</if>
+		</set>
+		where RESOURCE_ID = #{resourceId}
+		and SYSTEM_ID = #{systemId}
+	</update>
+
+	<sql id="batchInsertSql">
+		insert into UAOP_MENU_RESOURCE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="item.resourceId != null">
+				RESOURCE_ID,
+			</if>
+			<if test="item.systemId != null">
+				SYSTEM_ID,
+			</if>
+			<if test="item.resourceName != null">
+				RESOURCE_NAME,
+			</if>
+			<if test="item.superId != null">
+				SUPER_ID,
+			</if>
+			<if test="item.url != null">
+				URL,
+			</if>
+			<if test="item.icon != null">
+				ICON,
+			</if>
+			<if test="item.visibleState != null">
+				VISIBLE_STATE,
+			</if>
+			<if test="item.orderNum != null">
+				ORDER_NUM,
+			</if>
+			<if test="item.note != null">
+				NOTE,
+			</if>
+			<if test="item.menuType != null">
+				MENU_TYPE,
+			</if>
+			<if test="item.resourceEnName != null">
+				RESOURCE_EN_NAME,
+			</if>
+			<if test="item.appType != null">
+				APP_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="item.resourceId != null">
+				#{item.resourceId},
+			</if>
+			<if test="item.systemId != null">
+				#{item.systemId},
+			</if>
+			<if test="item.resourceName != null">
+				#{item.resourceName},
+			</if>
+			<if test="item.superId != null">
+				#{item.superId},
+			</if>
+			<if test="item.url != null">
+				#{item.url},
+			</if>
+			<if test="item.icon != null">
+				#{item.icon},
+			</if>
+			<if test="item.visibleState != null">
+				#{item.visibleState},
+			</if>
+			<if test="item.orderNum != null">
+				#{item.orderNum},
+			</if>
+			<if test="item.note != null">
+				#{item.note},
+			</if>
+			<if test="item.menuType != null">
+				#{item.menuType},
+			</if>
+			<if test="item.resourceEnName != null">
+				#{item.resourceEnName},
+			</if>
+			<if test="item.appType != null">
+				#{item.appType},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 批量增加信息 -->
+	<insert id="addBatch" parameterType="java.util.List">
+		BEGIN
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			<include refid="batchInsertSql" />
+		</foreach>
+		;
+		END;
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="MenuResource">
+		delete from UAOP_MENU_RESOURCE
+		where SYSTEM_ID=#{systemId} and RESOURCE_ID=#{resourceId}
+	</delete>
+
+	<!-- 删除 -->
+	<delete id="deleteByCondition" parameterType="java.util.HashMap">
+		delete
+		<include refid="clausePage" />
+	</delete>
+
+	<!-- 根据主键查询 -->
+	<select id="getById" resultMap="menuResourceMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from UAOP_MENU_RESOURCE
+		<where>
+			SYSTEM_ID=#{systemId} and RESOURCE_ID=#{resourceId}
+		</where>
+	</select>
+
+	<!-- 获取某菜单下的子菜单资源 -->
+	<select id="getChildMenuResources" resultMap="menuResourceMap"
+		parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from UAOP_MENU_RESOURCE
+		<where>
+			SYSTEM_ID=#{systemId} and SUPER_ID=#{superId}
+			<if test="menuType != null">
+				and MENU_TYPE=#{menuType}
+			</if>
+			<if test="appType != null">
+				and APP_TYPE=#{appType}
+			</if>
+			order by ORDER_NUM
+		</where>
+	</select>
+
+	<sql id="clausePage">
+		from UAOP_MENU_RESOURCE
+		<where>
+			<if test="resourceName != null and resourceName != ''">
+				and RESOURCE_NAME like '%'||#{resourceName}||'%'
+			</if>
+			<if test="systemId != null and systemId != ''">
+				and SYSTEM_ID=#{systemId}
+			</if>
+			<if test="superId != null and superId != ''">
+				and SUPER_ID=#{superId}
+			</if>
+			<if test="menuType != null">
+				and MENU_TYPE=#{menuType}
+			</if>
+			<if test="appType != null">
+				and APP_TYPE=#{appType}
+			</if>
+			<if test="visibleState != null">
+				and VISIBLE_STATE=#{visibleState}
+			</if>
+			<if test="resourceEnName != null and resourceEnName != ''">
+				and RESOURCE_EN_NAME like '%'||#{resourceEnName}||'%'
+			</if>
+			<if test="roleId != null and roleId != ''">
+				and RESOURCE_ID in (select distinct RESOURCE_ID from
+				uaop_role_resource where ROLE_ID=#{roleId})
+			</if>
+		</where>
+	</sql>
+
+	<select id="query" resultMap="menuResourceMap" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		<include refid="clausePage" />
+		order by ORDER_NUM
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="java.util.HashMap">
+		select
+		count(0)
+		<include refid="clausePage" />
+	</select>
+
+	<!-- 根据SystemId查询 -->
+	<select id="getAllBySystemId" resultMap="menuResourceMap"
+		parameterType="String">
+		select
+		<include refid="selectId" />
+		from UAOP_MENU_RESOURCE
+		<where>
+			SYSTEM_ID=#{systemId} order by ORDER_NUM
+		</where>
+	</select>
+
+	<!-- 根据账号获取其拥有权限的某个系统的所有菜单 -->
+	<select id="getAuthedMenusByAccount" resultMap="menuResourceMap"
+		parameterType="java.util.HashMap">
+		select
+		distinct
+		<include refid="menuSelectId" />
+		from uaop_menu_resource m,
+		uaop_role_resource rr,
+		uaop_sysuser_role sr
+		where m.system_id=#{systemId}
+		and m.VISIBLE_STATE=0
+		and m.resource_id=rr.resource_id
+		and rr.resource_type=0
+		and rr.role_id=sr.role_id
+		and sr.account=#{account}
+		<if test="menuType != null">
+			and m.MENU_TYPE=#{menuType}
+		</if>
+		<if test="appType != null">
+			and APP_TYPE=#{appType}
+		</if>
+		order by m.ORDER_NUM
+	</select>
+
+	<select id="getChildrenById" resultMap="menuResourceMap"
+		parameterType="MenuResource">
+		select
+		<include refid="selectId" />
+		from uaop_menu_resource t
+		<where>
+			SYSTEM_ID=#{systemId}
+			<if test="appType != null">
+				and APP_TYPE=#{appType}
+			</if>
+		</where>
+		start with t.resource_id = #{resourceId}
+		connect by prior t.resource_id
+		= t.super_id
+	</select>
+
+
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		SYSTEM_ID,
+		RESOURCE_ID,
+		RESOURCE_NAME,
+		SUPER_ID,
+		URL,ICON,
+		VISIBLE_STATE,
+		ORDER_NUM,
+		NOTE,
+		MENU_TYPE,
+		RESOURCE_EN_NAME,
+		APP_TYPE
+	</sql>
+
+	<sql id="menuSelectId">
+		m.SYSTEM_ID,
+		m.RESOURCE_ID,
+		m.RESOURCE_NAME,
+		m.SUPER_ID,
+		m.URL,
+		m.ICON,
+		m.VISIBLE_STATE,
+		m.ORDER_NUM,
+		m.NOTE,
+		m.MENU_TYPE,
+		m.RESOURCE_EN_NAME,
+		m.APP_TYPE
+	</sql>
+
+	<sql id="insertId">
+		#{systemId},
+		#{resourceId},
+		#{resourceName},
+		#{superId},
+		#{url},
+		#{icon},
+		#{visibleState},
+		#{orderNum},
+		#{note},
+		#{menuType},
+		#{resourceEnName},
+		#{appType}
+	</sql>
+
+	<sql id="insertBatchId">
+		#{item.systemId},
+		#{item.resourceId},
+		#{item.resourceName},
+		#{item.superId},
+		#{item.url},
+		#{item.icon},
+		#{item.visibleState},
+		#{item.orderNum},
+		#{item.note},
+		#{item.menuType},
+		#{item.resourceEnName},
+		#{item.appType}
+	</sql>
+
+	<sql id="updateId">
+		RESOURCE_NAME=#{resourceName},
+		URL=#{url},
+		ICON=#{icon},
+		VISIBLE_STATE=#{visibleState},
+		ORDER_NUM=#{orderNum},
+		NOTE=#{note},
+		MENU_TYPE=#{menuType},
+		RESOURCE_EN_NAME=#{resourceEnName},
+		APP_TYPE=#{appType}
+	</sql>
+
+	<resultMap type="com.hisign.sso.api.entity.sys.MenuResource"
+		id="menuResourceMap">
+		<result property="systemId" column="SYSTEM_ID" />
+		<result property="resourceId" column="RESOURCE_ID" />
+		<result property="resourceName" column="RESOURCE_NAME" />
+		<result property="superId" column="SUPER_ID" />
+		<result property="url" column="URL" />
+		<result property="icon" column="ICON" />
+		<result property="visibleState" column="VISIBLE_STATE" />
+		<result property="orderNum" column="ORDER_NUM" />
+		<result property="note" column="NOTE" />
+		<result property="menuType" column="MENU_TYPE" />
+		<result property="resourceEnName" column="RESOURCE_EN_NAME" />
+		<result property="appType" column="APP_TYPE" />
+	</resultMap>
+
+</mapper>

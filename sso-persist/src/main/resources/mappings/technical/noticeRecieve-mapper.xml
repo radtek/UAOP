@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.technical.NoticeRecieveMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hisign.sso.api.entity.technical.NoticeRecieve">
+		<id column="ID" property="id" />
+		<result column="NOTICE_ID" property="noticeId" />
+		<result column="FEEDBACK_TYPE" property="feedbackType" />
+		<result column="FEEDBACK_CONTENT" property="feedbackContent" />
+		<result column="ATTACH_PATH" property="attachPath" />
+		<result column="ACCEPTOR" property="acceptor" />
+		<result column="ACCEPT_UNIT" property="acceptUnit" />
+		<result column="ACCEPT_TIME" property="acceptTime" />
+		<result column="FEEDBACKER" property="feedbacker" />
+		<result column="FEEDBACK_UNIT" property="feedbackUnit" />
+		<result column="FEEDBACK_TIME" property="feedbackTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, NOTICE_ID, FEEDBACK_TYPE, FEEDBACK_CONTENT, ATTACH_PATH, ACCEPTOR,
+		ACCEPT_UNIT,
+		ACCEPT_TIME, FEEDBACKER, FEEDBACK_UNIT, FEEDBACK_TIME
+	</sql>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_NOTICE_RECIEVE
+		where ID = #{id}
+	</select>
+	
+    <select id="getByNoticeId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_NOTICE_RECIEVE
+		where NOTICE_ID = #{noticeId}
+	</select>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from UAOP_NOTICE_RECIEVE
+		where ID = #{id}
+	</delete>
+
+	<insert id="add" parameterType="NoticeRecieve">
+		insert into UAOP_NOTICE_RECIEVE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="noticeId != null">
+				NOTICE_ID,
+			</if>
+			<if test="feedbackType != null">
+				FEEDBACK_TYPE,
+			</if>
+			<if test="feedbackContent != null">
+				FEEDBACK_CONTENT,
+			</if>
+			<if test="attachPath != null">
+				ATTACH_PATH,
+			</if>
+			<if test="acceptor != null">
+				ACCEPTOR,
+			</if>
+			<if test="acceptUnit != null">
+				ACCEPT_UNIT,
+			</if>
+			<if test="acceptTime != null">
+				ACCEPT_TIME,
+			</if>
+			<if test="feedbacker != null">
+				FEEDBACKER,
+			</if>
+			<if test="feedbackUnit != null">
+				FEEDBACK_UNIT,
+			</if>
+			<if test="feedbackTime != null">
+				FEEDBACK_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="noticeId != null">
+				#{noticeId},
+			</if>
+			<if test="feedbackType != null">
+				#{feedbackType},
+			</if>
+			<if test="feedbackContent != null">
+				#{feedbackContent},
+			</if>
+			<if test="attachPath != null">
+				#{attachPath},
+			</if>
+			<if test="acceptor != null">
+				#{acceptor},
+			</if>
+			<if test="acceptUnit != null">
+				#{acceptUnit},
+			</if>
+			<if test="acceptTime != null">
+				#{acceptTime},
+			</if>
+			<if test="feedbacker != null">
+				#{feedbacker},
+			</if>
+			<if test="feedbackUnit != null">
+				#{feedbackUnit},
+			</if>
+			<if test="feedbackTime != null">
+				#{feedbackTime},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="NoticeRecieve">
+		update UAOP_NOTICE_RECIEVE
+		<set>
+			<if test="noticeId != null">
+				NOTICE_ID = #{noticeId},
+			</if>
+			<if test="feedbackType != null">
+				FEEDBACK_TYPE = #{feedbackType},
+			</if>
+			<if test="feedbackContent != null">
+				FEEDBACK_CONTENT = #{feedbackContent},
+			</if>
+			<if test="attachPath != null">
+				ATTACH_PATH = #{attachPath},
+			</if>
+			<if test="acceptor != null">
+				ACCEPTOR = #{acceptor},
+			</if>
+			<if test="acceptUnit != null">
+				ACCEPT_UNIT = #{acceptUnit},
+			</if>
+			<if test="acceptTime != null">
+				ACCEPT_TIME = #{acceptTime},
+			</if>
+			<if test="feedbacker != null">
+				FEEDBACKER = #{feedbacker},
+			</if>
+			<if test="feedbackUnit != null">
+				FEEDBACK_UNIT = #{feedbackUnit},
+			</if>
+			<if test="feedbackTime != null">
+				FEEDBACK_TIME = #{feedbackTime},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

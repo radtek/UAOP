@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.technical.SmsNotifyRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hisign.sso.api.entity.technical.SmsNotifyRecord">
+		<id column="ID" property="id" />
+		<result column="NOTIFY_ID" property="notifyId" />
+		<result column="SMS_CONTENT" property="smsContent" />
+		<result column="RECIEVE_USER" property="recieveUser" />
+		<result column="SENDER" property="sender" />
+		<result column="SEND_TIME" property="sendTime" />
+		<result column="SEND_STATUS" property="sendStatus" />
+		<result column="RESULT" property="result" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_TIME" property="createTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, NOTIFY_ID, SMS_CONTENT, RECIEVE_USER, SENDER, SEND_TIME, SEND_STATUS,
+		RESULT,
+		CREATE_USER, CREATE_TIME
+	</sql>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SMS_NOTIFY_RECORD
+		where ID = #{id}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from UAOP_SMS_NOTIFY_RECORD
+		where ID = #{id}
+	</delete>
+
+	<insert id="add" parameterType="com.hisign.sso.api.entity.technical.SmsNotifyRecord">
+		insert into UAOP_SMS_NOTIFY_RECORD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="notifyId != null">
+				NOTIFY_ID,
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT,
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER,
+			</if>
+			<if test="sender != null">
+				SENDER,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="sendStatus != null">
+				SEND_STATUS,
+			</if>
+			<if test="result != null">
+				RESULT,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="notifyId != null">
+				#{notifyId},
+			</if>
+			<if test="smsContent != null">
+				#{smsContent},
+			</if>
+			<if test="recieveUser != null">
+				#{recieveUser},
+			</if>
+			<if test="sender != null">
+				#{sender},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="sendStatus != null">
+				#{sendStatus},
+			</if>
+			<if test="result != null">
+				#{result},
+			</if>
+			<if test="createUser != null">
+				#{createUser},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="SmsNotifyRecord">
+		update UAOP_SMS_NOTIFY_RECORD
+		<set>
+			<if test="notifyId != null">
+				NOTIFY_ID = #{notifyId},
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT = #{smsContent},
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER = #{recieveUser},
+			</if>
+			<if test="sender != null">
+				SENDER = #{sender},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime},
+			</if>
+			<if test="sendStatus != null">
+				SEND_STATUS = #{sendStatus},
+			</if>
+			<if test="result != null">
+				RESULT = #{result},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+</mapper>

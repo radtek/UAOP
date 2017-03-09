@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.sys.DeviceRegistMapper" >
+  <resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.sys.DeviceRegist">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DEVICE_TYPE" jdbcType="VARCHAR" property="deviceType" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="UNIT_CODE" jdbcType="VARCHAR" property="unitCode" />
+    <result column="HISIGN_PN" jdbcType="VARCHAR" property="hisignPn" />
+    <result column="OPEN_FLAG" jdbcType="VARCHAR" property="openFlag" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="CREATE_ACCOUNT" jdbcType="VARCHAR" property="createAccount" />
+    <result column="CREATE_TIME" jdbcType="DECIMAL" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="DECIMAL" property="lastModifyTime" />
+    <result column="LAST_MODIFY_ACCOUNT" jdbcType="VARCHAR" property="lastModifyAccount" />
+    <result column="LAST_TERMINAL" jdbcType="VARCHAR" property="lastTerminal" />
+    <result column="LAST_SYS" jdbcType="VARCHAR" property="lastSys" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DEVICE_TYPE, DEVICE_ID, UNIT_CODE, HISIGN_PN, OPEN_FLAG, STATUS, CREATE_ACCOUNT, 
+    CREATE_TIME, LAST_MODIFY_TIME, LAST_MODIFY_ACCOUNT, LAST_TERMINAL, LAST_SYS
+  </sql>
+</mapper>

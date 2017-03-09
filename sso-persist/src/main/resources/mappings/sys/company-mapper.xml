@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.CompanyMapper">
+
+	<select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_COMPANY
+		where ID = #{id}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from UAOP_COMPANY
+		where
+		ID = #{id}
+	</delete>
+	
+	<insert id="add" parameterType="Company">
+		insert into UAOP_COMPANY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="companyName != null">
+				COMPANY_NAME,
+			</if>
+			<if test="superId != null">
+				SUPER_ID,
+			</if>
+			<if test="systemId != null">
+				SYSTEM_ID,
+			</if>
+			<if test="note != null">
+				NOTE,
+			</if>
+			<if test="pinyin != null">
+				PINYIN,
+			</if>
+			<if test="firstLetter != null">
+				FIRST_LETTER,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createAccount != null">
+				CREATE_ACCOUNT,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME,
+			</if>
+			<if test="lastModifyAccount != null">
+				LAST_MODIFY_ACCOUNT,
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL,
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="companyName != null">
+				#{companyName},
+			</if>
+			<if test="superId != null">
+				#{superId},
+			</if>
+			<if test="systemId != null">
+				#{systemId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="pinyin != null">
+				#{pinyin},
+			</if>
+			<if test="firstLetter != null">
+				#{firstLetter},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="createAccount != null">
+				#{createAccount},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime},
+			</if>
+			<if test="lastModifyAccount != null">
+				#{lastModifyAccount},
+			</if>
+			<if test="lastTerminal != null">
+				#{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				#{lastSys},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="Company">
+		update UAOP_COMPANY
+		<set>
+			<if test="companyName != null">
+				COMPANY_NAME = #{companyName},
+			</if>
+			<if test="superId != null">
+				SUPER_ID = #{superId},
+			</if>
+			<if test="systemId != null">
+				SYSTEM_ID = #{systemId},
+			</if>
+			<if test="note != null">
+				NOTE = #{note},
+			</if>
+			<if test="pinyin != null">
+				PINYIN = #{pinyin},
+			</if>
+			<if test="firstLetter != null">
+				FIRST_LETTER = #{firstLetter},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="createAccount != null">
+				CREATE_ACCOUNT = #{createAccount},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME = #{lastModifyTime},
+			</if>
+			<if test="lastModifyAccount != null">
+				LAST_MODIFY_ACCOUNT =
+				#{lastModifyAccount},
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL = #{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS = #{lastSys},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<update id="updateStatusById" parameterType="Company">
+		update UAOP_COMPANY
+		<set>
+			<include refid="comm.updateStatusIdSql" />
+		</set>
+		where USER_ID=#{userId}
+	</update>
+	
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_COMPANY where state=0
+		<if test="companyName != null and companyName != ''">
+			and COMPANY_NAME like CONCAT(CONCAT('%',#{companyName}),'%') escape '\'
+		</if>
+		<if test="superId != null and superId != ''">
+			and SUPER_ID = #{superId}
+		</if>
+		<if test="systemId != null and systemId != ''">
+			and SYSTEM_ID = #{systemId}
+		</if>
+		<if test="pinyin != null and pinyin != ''">
+			and PINYIN = #{pinyin}
+		</if>
+		<if test="firstLetter != null and firstLetter != ''">
+			and FIRST_LETTER = #{firstLetter}
+		</if>
+	</select>
+
+    <sql id="Base_Column_List">
+		ID, COMPANY_NAME, SUPER_ID, SYSTEM_ID, NOTE, PINYIN,
+		FIRST_LETTER,
+		STATUS, CREATE_ACCOUNT,
+		CREATE_TIME, LAST_MODIFY_TIME,
+		LAST_MODIFY_ACCOUNT, LAST_TERMINAL, LAST_SYS
+	</sql>
+	
+	<resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.sys.Company">
+		<result column="ID" property="id" />
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SUPER_ID" property="superId" />
+		<result column="SYSTEM_ID" property="systemId" />
+		<result column="NOTE" property="note" />
+		<result column="PINYIN" property="pinyin" />
+		<result column="FIRST_LETTER" property="firstLetter" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_ACCOUNT" property="createAccount" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="LAST_MODIFY_TIME" property="lastModifyTime" />
+		<result column="LAST_MODIFY_ACCOUNT" property="lastModifyAccount" />
+		<result column="LAST_TERMINAL" property="lastTerminal" />
+		<result column="LAST_SYS" property="lastSys" />
+		<result property="rowNum" column="ROW_ID" />
+	</resultMap>
+</mapper>

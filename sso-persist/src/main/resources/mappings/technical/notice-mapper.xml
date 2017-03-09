@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.technical.NoticeMapper">
+	<resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.technical.Notice">
+		<id column="ID" property="id" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="SEND_STATUS" property="sendStatus" />
+		<result column="SENDER" property="sender" />
+		<result column="SEND_TIME" property="sendTime" />
+		<result column="SEND_UNIT" property="sendUnit" />
+		<result column="SEND_TYPE" property="sendType" />
+		<result column="RECIEVE_UNIT" property="recieveUnit" />
+		<result column="RECIEVE_USER" property="recieveUser" />
+		<result column="FEEDBACK_STATUS" property="feedbackStatus" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="LAST_MODIFY_USER" property="lastModifyUser" />
+		<result column="LAST_MODIFY_TIME" property="lastModifyTime" />
+		<result column="LAST_TERMINAL" property="lastTerminal" />
+		<result column="LAST_SYS" property="lastSys" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, TITLE, SEND_STATUS, SENDER, SEND_TIME, SEND_UNIT,
+		SEND_TYPE,
+		RECIEVE_UNIT, RECIEVE_USER,
+		FEEDBACK_STATUS, STATUS,
+		CREATE_USER, CREATE_TIME, LAST_MODIFY_USER, LAST_MODIFY_TIME,
+		LAST_TERMINAL, LAST_SYS
+	</sql>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_NOTICE
+		where ID = #{id}
+	</select>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from UAOP_NOTICE where ID = #{id}
+	</delete>
+	
+	<insert id="add" parameterType="Notice">
+		insert into UAOP_NOTICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="sendStatus != null">
+				SEND_STATUS,
+			</if>
+			<if test="sender != null">
+				SENDER,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="sendUnit != null">
+				SEND_UNIT,
+			</if>
+			<if test="sendType != null">
+				SEND_TYPE,
+			</if>
+			<if test="recieveUnit != null">
+				RECIEVE_UNIT,
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER,
+			</if>
+			<if test="feedbackStatus != null">
+				FEEDBACK_STATUS,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="lastModifyUser != null">
+				LAST_MODIFY_USER,
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME,
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL,
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="title != null">
+				#{title},
+			</if>
+			<if test="sendStatus != null">
+				#{sendStatus},
+			</if>
+			<if test="sender != null">
+				#{sender},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="sendUnit != null">
+				#{sendUnit},
+			</if>
+			<if test="sendType != null">
+				#{sendType},
+			</if>
+			<if test="recieveUnit != null">
+				#{recieveUnit},
+			</if>
+			<if test="recieveUser != null">
+				#{recieveUser},
+			</if>
+			<if test="feedbackStatus != null">
+				#{feedbackStatus},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="createUser != null">
+				#{createUser},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="lastModifyUser != null">
+				#{lastModifyUser},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime},
+			</if>
+			<if test="lastTerminal != null">
+				#{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				#{lastSys},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="Notice">
+		update UAOP_NOTICE
+		<set>
+			<if test="title != null">
+				TITLE = #{title},
+			</if>
+			<if test="sendStatus != null">
+				SEND_STATUS = #{sendStatus},
+			</if>
+			<if test="sender != null">
+				SENDER = #{sender},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime},
+			</if>
+			<if test="sendUnit != null">
+				SEND_UNIT = #{sendUnit},
+			</if>
+			<if test="sendType != null">
+				SEND_TYPE = #{sendType},
+			</if>
+			<if test="recieveUnit != null">
+				RECIEVE_UNIT = #{recieveUnit},
+			</if>
+			<if test="recieveUser != null">
+				RECIEVE_USER = #{recieveUser},
+			</if>
+			<if test="feedbackStatus != null">
+				FEEDBACK_STATUS = #{feedbackStatus},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+			<if test="lastModifyUser != null">
+				LAST_MODIFY_USER = #{lastModifyUser},
+			</if>
+			<if test="lastModifyTime != null">
+				LAST_MODIFY_TIME = #{lastModifyTime},
+			</if>
+			<if test="lastTerminal != null">
+				LAST_TERMINAL = #{lastTerminal},
+			</if>
+			<if test="lastSys != null">
+				LAST_SYS = #{lastSys},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<update id="updateStatusById" parameterType="Notice">
+		update UAOP_NOTICE
+		<set>
+			<include refid="comm.updateStatusIdSql" />
+		</set>
+		where ID=#{id}
+	</update>
+	
+	<select id="query" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		<include refid="clausePage" />
+	</select>
+	
+	<sql id="clausePage">
+		from UAOP_NOTICE
+		<where>
+			STATUS=0
+			<if test="title != null and title != ''">
+				and TITLE like '%'||#{title}||'%'
+			</if>
+			<if test="sender != null and sender != ''">
+				and SENDER = #{sender}
+			</if>
+			<if test="sendStatus != null and sendStatus != '-1'">
+				and SEND_STATUS=#{sendStatus}
+			</if>
+			<if test="sendUnit != null and sendUnit != ''">
+				and SEND_UNIT like '%'||#{sendUnit}||'%'
+			</if>
+		</where>
+	</sql>
+	
+	<select id="count" resultType="Integer" parameterType="java.util.HashMap">
+		select
+		count(0)
+		<include refid="clausePage" />
+	</select>
+</mapper>

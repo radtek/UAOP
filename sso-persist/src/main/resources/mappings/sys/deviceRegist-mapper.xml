@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hisign.sso.persist.mapper.sys.DeviceRegistMapper" >
+  <!-- 查询所有符合条件的 -->
+	<select id="find" resultMap="BaseResultMap" parameterType="DeviceRegist">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_DEVICE_REGIST
+		<where>
+			status=0 and OPEN_FLAG='1'
+			<if test="deviceType != null and deviceType != ''">
+				and DEVICE_TYPE = #{deviceType}
+			</if>
+			<if test="deviceId != null and deviceId != ''">
+				and DEVICE_ID = #{deviceId}
+			</if>
+		</where>
+	</select>
+  <insert id="add" parameterType="com.hisign.sso.api.entity.sys.DeviceRegist" >
+    insert into UAOP_DEVICE_REGIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="deviceType != null">
+        DEVICE_TYPE,
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID,
+      </if>
+      <if test="unitCode != null">
+        UNIT_CODE,
+      </if>
+      <if test="hisignPn != null">
+        HISIGN_PN,
+      </if>
+      <if test="openFlag != null">
+        OPEN_FLAG,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createAccount != null">
+        CREATE_ACCOUNT,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="lastModifyAccount != null">
+        LAST_MODIFY_ACCOUNT,
+      </if>
+      <if test="lastTerminal != null">
+        LAST_TERMINAL,
+      </if>
+      <if test="lastSys != null">
+        LAST_SYS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null">
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hisignPn != null">
+        #{hisignPn,jdbcType=VARCHAR},
+      </if>
+      <if test="openFlag != null">
+        #{openFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createAccount != null">
+        #{createAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifyAccount != null">
+        #{lastModifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTerminal != null">
+        #{lastTerminal,jdbcType=VARCHAR},
+      </if>
+      <if test="lastSys != null">
+        #{lastSys,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hisign.sso.api.entity.sys.DeviceRegist" >
+    update UAOP_DEVICE_REGIST
+    <set>
+      <if test="deviceType != null">
+        DEVICE_TYPE = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null">
+        UNIT_CODE = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hisignPn != null">
+        HISIGN_PN = #{hisignPn,jdbcType=VARCHAR},
+      </if>
+      <if test="openFlag != null">
+        OPEN_FLAG = #{openFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createAccount != null">
+        CREATE_ACCOUNT = #{createAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifyAccount != null">
+        LAST_MODIFY_ACCOUNT = #{lastModifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTerminal != null">
+        LAST_TERMINAL = #{lastTerminal,jdbcType=VARCHAR},
+      </if>
+      <if test="lastSys != null">
+        LAST_SYS = #{lastSys,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

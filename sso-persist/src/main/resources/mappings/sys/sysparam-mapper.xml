@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hisign.sso.persist.mapper.sys.SysparamMapper">
+  <resultMap id="BaseResultMap" type="com.hisign.sso.api.entity.sys.Sysparam">
+    <id column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
+    <id column="PARAM_TYPE" jdbcType="VARCHAR" property="paramType" />
+    <id column="PARAM_NAME" jdbcType="VARCHAR" property="paramName" />
+    <result column="PARAM_VALUE" jdbcType="VARCHAR" property="paramValue" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="DECIMAL" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="DECIMAL" property="lastModifyTime" />
+    <result column="EXT_STR1" jdbcType="VARCHAR" property="extStr1" />
+    <result column="EXT_STR2" jdbcType="VARCHAR" property="extStr2" />
+    <result column="EXT_STR3" jdbcType="VARCHAR" property="extStr3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SYSTEM_ID, PARAM_TYPE, PARAM_NAME, PARAM_VALUE, CREATE_USER, CREATE_TIME, LAST_MODIFY_TIME, 
+    EXT_STR1, EXT_STR2, EXT_STR3
+  </sql>
+  	<select id="find" resultMap="BaseResultMap" parameterType="Sysparam">
+		select
+		<include refid="Base_Column_List" />
+		from UAOP_SYSPARAM
+		<where>
+			<if test="systemId != null">
+			  and SYSTEM_ID=#{systemId}
+			</if>
+			<if test="paramType != null">
+			  and PARAM_TYPE=#{paramType}
+			</if>
+			<if test="paramName != null">
+			  and PARAM_NAME=#{paramName}
+			</if>
+		</where>
+	</select>
+  <insert id="insert" parameterType="com.hisign.sso.api.entity.sys.Sysparam">
+    insert into UAOP_SYSPARAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="paramType != null">
+        PARAM_TYPE,
+      </if>
+      <if test="paramName != null">
+        PARAM_NAME,
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="extStr1 != null">
+        EXT_STR1,
+      </if>
+      <if test="extStr2 != null">
+        EXT_STR2,
+      </if>
+      <if test="extStr3 != null">
+        EXT_STR3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramType != null">
+        #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="paramName != null">
+        #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=DECIMAL},
+      </if>
+      <if test="extStr1 != null">
+        #{extStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="extStr2 != null">
+        #{extStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="extStr3 != null">
+        #{extStr3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
