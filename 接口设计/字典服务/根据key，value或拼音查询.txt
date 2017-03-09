@@ -1,0 +1,42 @@
+POST
+URL:
+http://127.0.0.1:58811/api/sys/dicts/list
+
+请求头：
+systemid: xcky
+token: 16c743137d5f78a9d9db872e8e5cf219
+Content-Type: application/json
+
+请求：
+{
+    "dictKey": "noeditmode",
+    "dictValue1": "编号",
+    "dictPy": "BHBJMS"
+}
+
+
+响应：
+[
+    {
+        "id": null,
+        "sysCode": null,
+        "dictLevel": null,
+        "dictKey": "noeditmode",
+        "parentKey": "BHGZDM",
+        "rootKey": null,
+        "dictValue1": "编号编辑模式",
+        "dictValue2": null,
+        "dictValue3": null,
+        "leafFlag": null,
+        "downloadFlag": null,
+        "readonlyFlag": null,
+        "dictSort": null,
+        "dictPy": "BHBJMS",
+        "openFlag": null,
+        "remark": null,
+        "createUser": null,
+        "createDatetime": null,
+        "updateUser": null,
+        "updateDatetime": null
+    }
+]

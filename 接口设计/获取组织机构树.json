@@ -1,0 +1,56 @@
+GET
+URL:
+http://172.16.0.112:58811/api/sys/organises/ALIMS/alltreebysystem
+
+请求头：
+Content-Type: application/json
+systemId: ALIMS
+token: b0201e753840fd184096c2d90b428663
+
+
+
+响应：
+[
+    {
+        "status": 0,
+        "createAccount": "admin",
+        "lastModifyAccount": null,
+        "indexNum": 0,
+        "orgId": "e52a5738921f49cc838d6f5237027e08",
+        "orgCode": "350000000000",
+        "name": "福建省公安厅",
+        "superId": "-1",
+        "systemId": "ALIMS",
+        "type": 1,
+        "note": null,
+        "pinyin": null,
+        "firstLetter": null,
+        "shortenedName": null,
+        "phone": null,
+        "fax": null,
+        "address": null,
+        "zipcode": null,
+        "children": [
+            {
+                "status": 0,
+                "createAccount": "admin",
+                "lastModifyAccount": null,
+                "indexNum": 0,
+                "orgId": "cc7318484723429285adb5298807fd14",
+                "orgCode": "350305770000",
+                "name": "莆田市公安局埭头派出所",
+				"superId": "e52a5738921f49cc838d6f5237027e08",
+				"systemId": "ALIMS",
+				"type": 1,
+				"note": null,
+				"pinyin": null,
+				"firstLetter": null,
+				"shortenedName": null,
+				"phone": null,
+				"fax": null,
+				"address": null,
+				"zipcode": null
+			}
+		]
+	}
+]

@@ -1,0 +1,75 @@
+POST
+URL:
+http://172.16.0.112:58811/api/sys/login
+
+请求头：
+Content-Type: application/json
+systemId: MPP
+
+请求：
+{
+    "account": "super",
+    "pass": "123456"
+}
+
+
+响应：
+{
+    "token": "b0201e753840fd184096c2d90b428663",
+    "imToken": null,
+    "userId": "bac27d2398e043d2970e9e62ab4b4d34",
+    "account": null,
+    "sysCode": null,
+    "tokenTime": null,
+    "randomVal": null,
+    "effectiveTime": null,
+    "invalidTime": null,
+    "createDate": null,
+    "user": {
+        "status": 0,
+        "createAccount": null,
+        "lastModifyAccount": null,
+        "indexNum": 0,
+        "userId": "bac27d2398e043d2970e9e62ab4b4d34",
+        "userName": "系统管理员",
+        "sex": 2,
+        "cid": "111111199006282000",
+        "isPolice": 0,
+        "policeId": "12313",
+        "contact": null,
+        "avatar": "",
+        "post": null,
+        "postName": null,
+        "birth": 0,
+        "poli": null,
+        "poliName": null,
+        "phone": null,
+        "fax": null,
+        "address": null,
+        "zipcode": null,
+        "province": null,
+        "provinceName": null,
+        "city": null,
+        "cityName": null,
+        "county": null,
+        "countyName": null,
+        "extStr1": null,
+        "extStr2": null,
+        "extStr3": null,
+        "nation": null,
+        "nativePlace": null,
+        "mobilePhone": null,
+        "addpoliDate": 0,
+        "account": "super",
+        "pass": "E10ADC3949BA59ABBE56E057F20F883E",
+        "userType": 2,
+        "activeStatus": 1,
+        "orgId": "a8b5b7d2b336413f98097ebb6e04cab7",
+        "orgName": "福建省公安厅物证鉴定中心",
+        "orgCode": "350000000000",
+        "orgType": 2,
+        "roleName": "系统管理员"
+    }
+}
+
+

@@ -1,0 +1,25 @@
+POST
+URL:
+http://ip:port/api/sys/tokens/check
+http://127.0.0.1:58811/api/sys/tokens/check
+
+请求头：
+Content-Type: application/json
+
+请求体：
+{
+    "token": "363cc4d356911d57885e1880ea4b69ea",
+    "deviceId": "64-00-6A-4D-51-C6"
+}
+
+
+响应体(成功)：
+{"message":"成功","rspCode":"0000"}
+
+
+响应体(失败)：
+{"message":"设备未注册"}
+{"message":"TOKEN不存在"}
+
+
+
